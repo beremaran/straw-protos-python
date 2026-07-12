@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       source_tag:
+        description: Exact straw-protos tag
         required: true
+        type: string
       source_sha:
+        description: Commit resolved by the source tag
         required: true
+        type: string
 
 permissions:
   contents: read
@@ -75,4 +79,3 @@ jobs:
           git commit -m "Generate bindings from $SOURCE_TAG"
           git push -u origin "$branch"
           gh pr create --title "Generate bindings from $SOURCE_TAG" --body "Generated from exact private protocol tag $SOURCE_TAG. Provenance, reproducibility, package tests, and build checks are recorded. Generated files must not be edited manually." --base main --head "$branch"
-
