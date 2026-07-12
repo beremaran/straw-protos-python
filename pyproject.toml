@@ -1,0 +1,15 @@
+[project]
+name = "straw-protos"
+version = "0.3.0"
+description = "Generated Python bindings and protocol helpers for Straw"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.9"
+dependencies = ["protobuf==6.33.5"]
+
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["straw_protos*"]

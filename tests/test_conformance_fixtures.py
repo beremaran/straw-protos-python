@@ -2,12 +2,12 @@ import json
 from pathlib import Path
 import unittest
 
-from straw.egress import _ed25519
-from straw.egress.protocol import registration_signing_payload, sign_registration, verify_registration_signature
-from straw.proto.straw.v1 import straw_pb2 as pb
+from straw_protos import _ed25519
+from straw_protos.signing import registration_signing_payload, sign_registration, verify_registration_signature
+from straw_protos.straw.v1 import straw_pb2 as pb
 
 
-FIXTURES = Path(__file__).parents[2] / "conformance" / "fixtures" / "v1"
+FIXTURES = Path(__file__).parents[1] / "conformance" / "fixtures" / "v1"
 
 
 class ConformanceFixtureTests(unittest.TestCase):

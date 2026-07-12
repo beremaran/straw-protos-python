@@ -282,7 +282,7 @@ class RegisterRequest(_message.Message):
     nonce: bytes
     issued_at_unix_ms: int
     supported_fingerprint_profiles: _containers.RepeatedScalarFieldContainer[str]
-    def __init__(self, worker_id: _Optional[str] = ..., executor_type: _Optional[str] = ..., credential_id: _Optional[str] = ..., signed_token: _Optional[bytes] = ..., protocol_major: _Optional[int] = ..., protocol_minor: _Optional[int] = ..., software_version: _Optional[str] = ..., allowed_pools: _Optional[_Iterable[_Union[RegisterRequest.PoolRef, _Mapping]]] = ..., tags: _Optional[_Iterable[str]] = ..., countries: _Optional[_Iterable[str]] = ..., regions: _Optional[_Iterable[str]] = ..., ip_types: _Optional[_Iterable[str]] = ..., supported_ingress_modes: _Optional[_Iterable[str]] = ..., stable_egress_identity: _Optional[str] = ..., max_concurrency: _Optional[int] = ..., initial_draining: bool = ..., nonce: _Optional[bytes] = ..., issued_at_unix_ms: _Optional[int] = ..., supported_fingerprint_profiles: _Optional[_Iterable[str]] = ...) -> None: ...
+    def __init__(self, worker_id: _Optional[str] = ..., executor_type: _Optional[str] = ..., credential_id: _Optional[str] = ..., signed_token: _Optional[bytes] = ..., protocol_major: _Optional[int] = ..., protocol_minor: _Optional[int] = ..., software_version: _Optional[str] = ..., allowed_pools: _Optional[_Iterable[_Union[RegisterRequest.PoolRef, _Mapping]]] = ..., tags: _Optional[_Iterable[str]] = ..., countries: _Optional[_Iterable[str]] = ..., regions: _Optional[_Iterable[str]] = ..., ip_types: _Optional[_Iterable[str]] = ..., supported_ingress_modes: _Optional[_Iterable[str]] = ..., stable_egress_identity: _Optional[str] = ..., max_concurrency: _Optional[int] = ..., initial_draining: _Optional[bool] = ..., nonce: _Optional[bytes] = ..., issued_at_unix_ms: _Optional[int] = ..., supported_fingerprint_profiles: _Optional[_Iterable[str]] = ...) -> None: ...
 
 class RegisterAck(_message.Message):
     __slots__ = ("ok", "session_id", "error")
@@ -292,7 +292,7 @@ class RegisterAck(_message.Message):
     ok: bool
     session_id: str
     error: str
-    def __init__(self, ok: bool = ..., session_id: _Optional[str] = ..., error: _Optional[str] = ...) -> None: ...
+    def __init__(self, ok: _Optional[bool] = ..., session_id: _Optional[str] = ..., error: _Optional[str] = ...) -> None: ...
 
 class HeartbeatRequest(_message.Message):
     __slots__ = ("worker_id", "session_id", "health", "reason", "active_requests", "max_concurrency", "available_capacity", "queue_depth", "draining", "worker_timestamp_ms")
@@ -316,7 +316,7 @@ class HeartbeatRequest(_message.Message):
     queue_depth: int
     draining: bool
     worker_timestamp_ms: int
-    def __init__(self, worker_id: _Optional[str] = ..., session_id: _Optional[str] = ..., health: _Optional[_Union[WorkerHealth, str]] = ..., reason: _Optional[str] = ..., active_requests: _Optional[int] = ..., max_concurrency: _Optional[int] = ..., available_capacity: _Optional[int] = ..., queue_depth: _Optional[int] = ..., draining: bool = ..., worker_timestamp_ms: _Optional[int] = ...) -> None: ...
+    def __init__(self, worker_id: _Optional[str] = ..., session_id: _Optional[str] = ..., health: _Optional[_Union[WorkerHealth, str]] = ..., reason: _Optional[str] = ..., active_requests: _Optional[int] = ..., max_concurrency: _Optional[int] = ..., available_capacity: _Optional[int] = ..., queue_depth: _Optional[int] = ..., draining: _Optional[bool] = ..., worker_timestamp_ms: _Optional[int] = ...) -> None: ...
 
 class HeartbeatAck(_message.Message):
     __slots__ = ("ok", "error")
@@ -324,7 +324,7 @@ class HeartbeatAck(_message.Message):
     ERROR_FIELD_NUMBER: _ClassVar[int]
     ok: bool
     error: str
-    def __init__(self, ok: bool = ..., error: _Optional[str] = ...) -> None: ...
+    def __init__(self, ok: _Optional[bool] = ..., error: _Optional[str] = ...) -> None: ...
 
 class AssignRequest(_message.Message):
     __slots__ = ("mode", "deadline_unix_ms", "expected_upload_bytes", "selected_route_id", "selected_pool_id", "selected_executor_id", "stable_egress_identity", "replayable", "attempt", "policy_version", "initial_upload_credit_bytes", "initial_download_credit_bytes", "max_inflight_upload_bytes", "max_inflight_download_bytes")
@@ -356,7 +356,7 @@ class AssignRequest(_message.Message):
     initial_download_credit_bytes: int
     max_inflight_upload_bytes: int
     max_inflight_download_bytes: int
-    def __init__(self, mode: _Optional[_Union[RequestMode, str]] = ..., deadline_unix_ms: _Optional[int] = ..., expected_upload_bytes: _Optional[int] = ..., selected_route_id: _Optional[str] = ..., selected_pool_id: _Optional[str] = ..., selected_executor_id: _Optional[str] = ..., stable_egress_identity: _Optional[str] = ..., replayable: bool = ..., attempt: _Optional[int] = ..., policy_version: _Optional[str] = ..., initial_upload_credit_bytes: _Optional[int] = ..., initial_download_credit_bytes: _Optional[int] = ..., max_inflight_upload_bytes: _Optional[int] = ..., max_inflight_download_bytes: _Optional[int] = ...) -> None: ...
+    def __init__(self, mode: _Optional[_Union[RequestMode, str]] = ..., deadline_unix_ms: _Optional[int] = ..., expected_upload_bytes: _Optional[int] = ..., selected_route_id: _Optional[str] = ..., selected_pool_id: _Optional[str] = ..., selected_executor_id: _Optional[str] = ..., stable_egress_identity: _Optional[str] = ..., replayable: _Optional[bool] = ..., attempt: _Optional[int] = ..., policy_version: _Optional[str] = ..., initial_upload_credit_bytes: _Optional[int] = ..., initial_download_credit_bytes: _Optional[int] = ..., max_inflight_upload_bytes: _Optional[int] = ..., max_inflight_download_bytes: _Optional[int] = ...) -> None: ...
 
 class AssignAck(_message.Message):
     __slots__ = ("code", "error")
@@ -445,13 +445,13 @@ class ErrorFrame(_message.Message):
     upstream_status: int
     timeout_type: TimeoutType
     details: _containers.ScalarMap[str, str]
-    def __init__(self, code: _Optional[_Union[ErrorCode, str]] = ..., category: _Optional[_Union[ErrorCategory, str]] = ..., message: _Optional[str] = ..., retryable: bool = ..., retry_after_ms: _Optional[int] = ..., upstream_status: _Optional[int] = ..., timeout_type: _Optional[_Union[TimeoutType, str]] = ..., details: _Optional[_Mapping[str, str]] = ...) -> None: ...
+    def __init__(self, code: _Optional[_Union[ErrorCode, str]] = ..., category: _Optional[_Union[ErrorCategory, str]] = ..., message: _Optional[str] = ..., retryable: _Optional[bool] = ..., retry_after_ms: _Optional[int] = ..., upstream_status: _Optional[int] = ..., timeout_type: _Optional[_Union[TimeoutType, str]] = ..., details: _Optional[_Mapping[str, str]] = ...) -> None: ...
 
 class EndFrame(_message.Message):
     __slots__ = ("success",)
     SUCCESS_FIELD_NUMBER: _ClassVar[int]
     success: bool
-    def __init__(self, success: bool = ...) -> None: ...
+    def __init__(self, success: _Optional[bool] = ...) -> None: ...
 
 class CancelFrame(_message.Message):
     __slots__ = ("reason",)
@@ -509,7 +509,7 @@ class DestinationPolicy(_message.Message):
     redirect_policy: RedirectPolicy
     policy_version: str
     resolution_mode: DestinationResolutionMode
-    def __init__(self, allow_private_ranges: bool = ..., allow_loopback: bool = ..., allow_link_local: bool = ..., allow_multicast: bool = ..., allow_metadata_ips: bool = ..., denied_cidrs: _Optional[_Iterable[str]] = ..., allowed_cidrs: _Optional[_Iterable[str]] = ..., denied_host_suffixes: _Optional[_Iterable[str]] = ..., denied_cname_suffixes: _Optional[_Iterable[str]] = ..., sni_host_mismatch_policy: _Optional[_Union[SniHostMismatchPolicy, str]] = ..., redirect_policy: _Optional[_Union[RedirectPolicy, str]] = ..., policy_version: _Optional[str] = ..., resolution_mode: _Optional[_Union[DestinationResolutionMode, str]] = ...) -> None: ...
+    def __init__(self, allow_private_ranges: _Optional[bool] = ..., allow_loopback: _Optional[bool] = ..., allow_link_local: _Optional[bool] = ..., allow_multicast: _Optional[bool] = ..., allow_metadata_ips: _Optional[bool] = ..., denied_cidrs: _Optional[_Iterable[str]] = ..., allowed_cidrs: _Optional[_Iterable[str]] = ..., denied_host_suffixes: _Optional[_Iterable[str]] = ..., denied_cname_suffixes: _Optional[_Iterable[str]] = ..., sni_host_mismatch_policy: _Optional[_Union[SniHostMismatchPolicy, str]] = ..., redirect_policy: _Optional[_Union[RedirectPolicy, str]] = ..., policy_version: _Optional[str] = ..., resolution_mode: _Optional[_Union[DestinationResolutionMode, str]] = ...) -> None: ...
 
 class BodyRefFrame(_message.Message):
     __slots__ = ("s3", "direct_stream", "expected_size_bytes", "sha256_hex")
@@ -582,7 +582,7 @@ class RequestStart(_message.Message):
     redirect_policy: RedirectPolicy
     destination_policy: DestinationPolicy
     policy_version: str
-    def __init__(self, mode: _Optional[_Union[RequestMode, str]] = ..., method: _Optional[str] = ..., url: _Optional[str] = ..., headers: _Optional[_Iterable[_Union[Header, _Mapping]]] = ..., routing_metadata: _Optional[_Mapping[str, str]] = ..., selected_route_id: _Optional[str] = ..., selected_pool_id: _Optional[str] = ..., deadline_unix_ms: _Optional[int] = ..., replayable: bool = ..., payload_capture_decision: _Optional[str] = ..., fingerprint_instruction: _Optional[str] = ..., injection_operations: _Optional[_Iterable[_Union[InjectionOperation, _Mapping]]] = ..., redirect_policy: _Optional[_Union[RedirectPolicy, str]] = ..., destination_policy: _Optional[_Union[DestinationPolicy, _Mapping]] = ..., policy_version: _Optional[str] = ...) -> None: ...
+    def __init__(self, mode: _Optional[_Union[RequestMode, str]] = ..., method: _Optional[str] = ..., url: _Optional[str] = ..., headers: _Optional[_Iterable[_Union[Header, _Mapping]]] = ..., routing_metadata: _Optional[_Mapping[str, str]] = ..., selected_route_id: _Optional[str] = ..., selected_pool_id: _Optional[str] = ..., deadline_unix_ms: _Optional[int] = ..., replayable: _Optional[bool] = ..., payload_capture_decision: _Optional[str] = ..., fingerprint_instruction: _Optional[str] = ..., injection_operations: _Optional[_Iterable[_Union[InjectionOperation, _Mapping]]] = ..., redirect_policy: _Optional[_Union[RedirectPolicy, str]] = ..., destination_policy: _Optional[_Union[DestinationPolicy, _Mapping]] = ..., policy_version: _Optional[str] = ...) -> None: ...
 
 class OutboundStartFrame(_message.Message):
     __slots__ = ("target_host", "target_port", "upstream_proxy_id", "attempt", "worker_timestamp_ms", "executed_fingerprint_profile")
@@ -635,4 +635,4 @@ class ErrorResponse(_message.Message):
     upstream_status: int
     timeout_type: TimeoutType
     details: _containers.ScalarMap[str, str]
-    def __init__(self, category: _Optional[_Union[ErrorCategory, str]] = ..., code: _Optional[_Union[ErrorCode, str]] = ..., message: _Optional[str] = ..., retryable: bool = ..., retry_after_ms: _Optional[int] = ..., request_id: _Optional[str] = ..., upstream_status: _Optional[int] = ..., timeout_type: _Optional[_Union[TimeoutType, str]] = ..., details: _Optional[_Mapping[str, str]] = ...) -> None: ...
+    def __init__(self, category: _Optional[_Union[ErrorCategory, str]] = ..., code: _Optional[_Union[ErrorCode, str]] = ..., message: _Optional[str] = ..., retryable: _Optional[bool] = ..., retry_after_ms: _Optional[int] = ..., request_id: _Optional[str] = ..., upstream_status: _Optional[int] = ..., timeout_type: _Optional[_Union[TimeoutType, str]] = ..., details: _Optional[_Mapping[str, str]] = ...) -> None: ...
