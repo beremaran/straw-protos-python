@@ -1,11 +1,14 @@
 {
   "source_repository": "github.com/beremaran/straw-protos",
-  "source_tag": "",
-  "source_commit": "0c5613d",
-  "generators": ["protocolbuffers/python:v33.5", "protocolbuffers/pyi:v33.5"],
+  "source_tag": "v0.3.0",
+  "source_commit": "0c5613d82a785347dc2592f5ef0f373ced9cd0a8",
+  "generators": [
+    "protocolbuffers/python:v33.5",
+    "protocolbuffers/pyi:v33.5"
+  ],
   "buf_version": "1.50.0",
-  "generation_config_revision": "bootstrap",
+  "generation_config_revision": "deec2ed80dd652d50188f5f27d1ef90b31f73bbe",
   "generated_repository_commit": "pending",
-  "reproducibility": "bootstrap verified locally; exact-tag verification required before release",
+  "reproducibility": "generated twice identically and tests passed",
   "generated_code_notice": "straw_pb2.py and straw_pb2.pyi are generated; do not edit manually"
 }
