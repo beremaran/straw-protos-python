@@ -238,12 +238,14 @@ class LogEvent(_message.Message):
 class RegisterRequest(_message.Message):
     __slots__ = ("worker_id", "executor_type", "credential_id", "signed_token", "protocol_major", "protocol_minor", "software_version", "allowed_pools", "tags", "countries", "regions", "ip_types", "supported_ingress_modes", "stable_egress_identity", "max_concurrency", "initial_draining", "nonce", "issued_at_unix_ms", "supported_fingerprint_profiles")
     class PoolRef(_message.Message):
-        __slots__ = ("deployment_id", "pool_id")
+        __slots__ = ("deployment_id", "pool_id", "upstream_proxy_id")
         DEPLOYMENT_ID_FIELD_NUMBER: _ClassVar[int]
         POOL_ID_FIELD_NUMBER: _ClassVar[int]
+        UPSTREAM_PROXY_ID_FIELD_NUMBER: _ClassVar[int]
         deployment_id: str
         pool_id: str
-        def __init__(self, deployment_id: _Optional[str] = ..., pool_id: _Optional[str] = ...) -> None: ...
+        upstream_proxy_id: str
+        def __init__(self, deployment_id: _Optional[str] = ..., pool_id: _Optional[str] = ..., upstream_proxy_id: _Optional[str] = ...) -> None: ...
     WORKER_ID_FIELD_NUMBER: _ClassVar[int]
     EXECUTOR_TYPE_FIELD_NUMBER: _ClassVar[int]
     CREDENTIAL_ID_FIELD_NUMBER: _ClassVar[int]
@@ -543,8 +545,22 @@ class DirectStreamRef(_message.Message):
     expires_unix_ms: int
     def __init__(self, endpoint: _Optional[str] = ..., stream_id: _Optional[str] = ..., expires_unix_ms: _Optional[int] = ...) -> None: ...
 
+class UpstreamProxyInstruction(_message.Message):
+    __slots__ = ("upstream_proxy_id", "provider_session_id", "country", "region", "ip_type")
+    UPSTREAM_PROXY_ID_FIELD_NUMBER: _ClassVar[int]
+    PROVIDER_SESSION_ID_FIELD_NUMBER: _ClassVar[int]
+    COUNTRY_FIELD_NUMBER: _ClassVar[int]
+    REGION_FIELD_NUMBER: _ClassVar[int]
+    IP_TYPE_FIELD_NUMBER: _ClassVar[int]
+    upstream_proxy_id: str
+    provider_session_id: str
+    country: str
+    region: str
+    ip_type: str
+    def __init__(self, upstream_proxy_id: _Optional[str] = ..., provider_session_id: _Optional[str] = ..., country: _Optional[str] = ..., region: _Optional[str] = ..., ip_type: _Optional[str] = ...) -> None: ...
+
 class RequestStart(_message.Message):
-    __slots__ = ("mode", "method", "url", "headers", "routing_metadata", "selected_route_id", "selected_pool_id", "deadline_unix_ms", "replayable", "payload_capture_decision", "fingerprint_instruction", "injection_operations", "redirect_policy", "destination_policy", "policy_version")
+    __slots__ = ("mode", "method", "url", "headers", "routing_metadata", "selected_route_id", "selected_pool_id", "deadline_unix_ms", "replayable", "payload_capture_decision", "fingerprint_instruction", "injection_operations", "redirect_policy", "destination_policy", "policy_version", "upstream_proxy")
     class RoutingMetadataEntry(_message.Message):
         __slots__ = ("key", "value")
         KEY_FIELD_NUMBER: _ClassVar[int]
@@ -567,6 +583,7 @@ class RequestStart(_message.Message):
     REDIRECT_POLICY_FIELD_NUMBER: _ClassVar[int]
     DESTINATION_POLICY_FIELD_NUMBER: _ClassVar[int]
     POLICY_VERSION_FIELD_NUMBER: _ClassVar[int]
+    UPSTREAM_PROXY_FIELD_NUMBER: _ClassVar[int]
     mode: RequestMode
     method: str
     url: str
@@ -582,7 +599,8 @@ class RequestStart(_message.Message):
     redirect_policy: RedirectPolicy
     destination_policy: DestinationPolicy
     policy_version: str
-    def __init__(self, mode: _Optional[_Union[RequestMode, str]] = ..., method: _Optional[str] = ..., url: _Optional[str] = ..., headers: _Optional[_Iterable[_Union[Header, _Mapping]]] = ..., routing_metadata: _Optional[_Mapping[str, str]] = ..., selected_route_id: _Optional[str] = ..., selected_pool_id: _Optional[str] = ..., deadline_unix_ms: _Optional[int] = ..., replayable: _Optional[bool] = ..., payload_capture_decision: _Optional[str] = ..., fingerprint_instruction: _Optional[str] = ..., injection_operations: _Optional[_Iterable[_Union[InjectionOperation, _Mapping]]] = ..., redirect_policy: _Optional[_Union[RedirectPolicy, str]] = ..., destination_policy: _Optional[_Union[DestinationPolicy, _Mapping]] = ..., policy_version: _Optional[str] = ...) -> None: ...
+    upstream_proxy: UpstreamProxyInstruction
+    def __init__(self, mode: _Optional[_Union[RequestMode, str]] = ..., method: _Optional[str] = ..., url: _Optional[str] = ..., headers: _Optional[_Iterable[_Union[Header, _Mapping]]] = ..., routing_metadata: _Optional[_Mapping[str, str]] = ..., selected_route_id: _Optional[str] = ..., selected_pool_id: _Optional[str] = ..., deadline_unix_ms: _Optional[int] = ..., replayable: _Optional[bool] = ..., payload_capture_decision: _Optional[str] = ..., fingerprint_instruction: _Optional[str] = ..., injection_operations: _Optional[_Iterable[_Union[InjectionOperation, _Mapping]]] = ..., redirect_policy: _Optional[_Union[RedirectPolicy, str]] = ..., destination_policy: _Optional[_Union[DestinationPolicy, _Mapping]] = ..., policy_version: _Optional[str] = ..., upstream_proxy: _Optional[_Union[UpstreamProxyInstruction, _Mapping]] = ...) -> None: ...
 
 class OutboundStartFrame(_message.Message):
     __slots__ = ("target_host", "target_port", "upstream_proxy_id", "attempt", "worker_timestamp_ms", "executed_fingerprint_profile")
