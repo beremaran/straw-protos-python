@@ -1,6 +1,6 @@
 [project]
 name = "straw-protos"
-version = "0.3.0"
+version = "0.4.0"
 description = "Generated Python bindings and protocol helpers for Straw"
 license = "MIT"
 license-files = ["LICENSE"]
